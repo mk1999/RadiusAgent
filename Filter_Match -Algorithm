@@ -61,10 +61,10 @@ If(maxBudget !=0 or minBudget!=0) then
 	Else
 		if(budget < minBudget)
 			Add ((Budget - qMinBudget)/minBudget) * 100 * 1.2
-			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 constant to the above formula.
+			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 (i.e 30/25) constant to the above formula.
 	Else
 			Add ((qMaxBudget - Budget)/maxBudget) * 100 * 1.2
-			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 constant to the above formula.
+			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 (i.e 30/25) constant to the above formula.
 
 
 
@@ -72,7 +72,7 @@ If(maxBudget !=0 or minBudget!=0) then
 		maxBedroom= max(minBedroom,maxBedroom)
 		minBedroom= maximum(0,maxBedroom - 10% of maxBedroom)
 		maxBedroom= maxBedroom+ 10% of maxBedroom
-	if(bedroom >= minBedroom AND bedroom <= maxBedroom) , then add 30 to percentage.
+	if(bedroom >= minBedroom AND bedroom <= maxBedroom) , then add 20 to percentage.
 	Else
 		if(bedroom < minBedroom)
 		        Add ((bedroom - qMinBedroom)/(minBedroom - qMinBedroom))*20
@@ -87,9 +87,9 @@ If(maxBudget !=0 or minBudget!=0) then
 		maxBathroom= max(minBathroom,maxBathroom)
 		minBathroom= maximum(0,maxBathroom - 10% of maxBathroom)
 		maxBathroom= maxBathroom+ 10% of maxBathroom
-	if(bathroom >= minBathroom AND bathroom<= maxBathroom) , then add 30 to percentage.
+	if(bathroom >= minBathroom AND bathroom<= maxBathroom) , then add 20 to percentage.
 	Else
-		if(bathroom < minBedroom)
+		if(bathroom < minBathroom)
 		       Add ((bathroom - qMinBathroom)/(minBathroom - qMinBathroom))*20
 
 //20 is the percentage value for bathroom
@@ -101,7 +101,8 @@ If(maxBudget !=0 or minBudget!=0) then
 
 
 8. If(percentage>=40)
-  Display the matching properties
+  	Push to ResultArray
+
 
 	
 	
