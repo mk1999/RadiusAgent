@@ -1,0 +1,113 @@
+MATCH PERCENTAGE ALGORITHM
+
+
+
+FindMatch ( Lat, Long, MinBudget, MaxBudget, MinBedRoom, MaxBedRoom, MinBathRom, MaxBathRoom) :
+
+
+Assumptions:
+
+Either min or max of budget or bedroom or bathroom is always given.
+If either min or max of budget or bedroom or bathroom is not given then it is set as 0
+
+
+Algorithm:
+
+
+     //Prepare QueryCondions
+
+qMaxBudget = maxBudget + 25 % of maxBudget
+
+qMinBuget = maximum(minBuget - 25 % of minBuget,0) 
+
+qMinBedroom = maximum(minBedroom - 2 ,0)
+
+qMaxBedroom = maxBedroom + 2
+
+qMinBathroom = maximum(minBathroom - 2 ,0)
+
+qMaxBathroom = maxBathroom + 2
+
+
+
+//Fetch Valid Matches from Database
+//Condition : For property and requirement to be considered a valid match, distance should be within 10 miles, the budget is +/- 25%, bedroom and bathroom should be +/- 2.
+
+ //Formula for checking if a property’s lat long is within requirements’s lat long
+
+distanceBetween = 3959 * acos (
+      cos ( radians(requirement’s lat) )
+      * cos( radians( property’s lati) )
+      * cos( radians(property’s lng ) - radians(requirement’s lng) )
+      + sin ( radians(requirement’s lat) )
+      * sin( radians( property’s lat ) )
+    )
+
+Query = Select * from database where (distanceBetween <= 10) and (budget >= qMinBuget and budget <= qMaxBudget) and (bedroom >= qMinBedroom and bedroom <= qMaxBedroom ) and (bathroom >= qMinBathroom and bathroom <= qMaxBathroom )
+
+The above query will fetch all valid matches satisfying the match condition
+
+For all matches do the below steps to get percentages
+
+Percentage = 0
+If distanceBetween <= 2 , add 30 to Percentage.
+Else add (10 - distanceBetween) * 3.75 to Percentage.
+// we need to split 30 % between 2 and 10 , so 8*x = 30 (i.e) x = 3.75 
+If(maxBudget !=0 or minBudget!=0) then 
+		maxBudget = max(minBudget,maxBudget)
+		minBudget = maximum(0,maxBudget - 10% of maxBudget)
+		maxBudget = maxBudget + 10% of maxBudget
+	if(budget >= minBudget AND budget <= maxBudget) , then add 30 to percentage.
+	Else
+		if(budget < minBudget)
+			Add ((Budget - qMinBudget)/minBudget) * 100 * 1.2
+			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 constant to the above formula.
+	Else
+			Add ((qMaxBudget - Budget)/maxBudget) * 100 * 1.2
+			// we fetch budget value as +/-25% from Database, so we need to convert 25% to 30%. Hence multiplying 1.2 constant to the above formula.
+
+
+
+6. If(maxBedroom !=0 or minBedroom!=0) then 
+		maxBedroom= max(minBedroom,maxBedroom)
+		minBedroom= maximum(0,maxBedroom - 10% of maxBedroom)
+		maxBedroom= maxBedroom+ 10% of maxBedroom
+	if(bedroom >= minBedroom AND bedroom <= maxBedroom) , then add 30 to percentage.
+	Else
+		if(bedroom < minBedroom)
+		        Add ((bedroom - qMinBedroom)/(minBedroom - qMinBedroom))*20
+
+			//20 is the percentage value for bedroom
+		Else
+		        Add ((qMaxBedroom - bedroom)/(qMaxBedroom - maxBedroom))*20
+
+			//  20 is the percentage value for bedroom
+
+7. If(maxBathroom !=0 or minBathroom!=0) then 
+		maxBathroom= max(minBathroom,maxBathroom)
+		minBathroom= maximum(0,maxBathroom - 10% of maxBathroom)
+		maxBathroom= maxBathroom+ 10% of maxBathroom
+	if(bathroom >= minBathroom AND bathroom<= maxBathroom) , then add 30 to percentage.
+	Else
+		if(bathroom < minBedroom)
+		       Add ((bathroom - qMinBathroom)/(minBathroom - qMinBathroom))*20
+
+//20 is the percentage value for bathroom
+		Else
+		    Add ((qMaxBathroom - bathroom)/(qMaxBathroom - maxBathroom))*20
+
+			//  20 is the percentage value for bathroom
+
+
+
+8. If(percentage>=40)
+  Display the matching properties
+
+	
+	
+
+
+
+
+
+
