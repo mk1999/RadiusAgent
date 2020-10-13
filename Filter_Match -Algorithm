@@ -43,7 +43,7 @@ distanceBetween = 3959 * acos (
       * sin( radians( property’s lat ) )
     )
 
-Query = Select * from database where (distanceBetween <= 10) and (budget >= qMinBuget and budget <= qMaxBudget) and (bedroom >= qMinBedroom and bedroom <= qMaxBedroom ) and (bathroom >= qMinBathroom and bathroom <= qMaxBathroom )
+Query = Select all valid records from database where (distanceBetween <= 10) and (budget >= qMinBuget and budget <= qMaxBudget) and (bedroom >= qMinBedroom and bedroom <= qMaxBedroom ) and (bathroom >= qMinBathroom and bathroom <= qMaxBathroom )
 
 The above query will fetch all valid matches satisfying the match condition
 
