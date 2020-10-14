@@ -1,0 +1,39 @@
+run:
+Enter the latitude:
+20
+Enter the longitude:
+45
+Enter the minimum budget:
+15000
+Enter the maximum budget:
+45000
+Enter the minimum bedroom:
+1
+Enter the maximum bedroom:
+4
+Enter the minimum bathroom:
+1
+Enter the maximum bathroom:
+4
+Select id, (3959 * acos ( cos ( radians(20)) * cos( radians( latitude) ) * cos( radians(longitude ) - radians(45 ))  + sin ( radians(20) ) * sin( radians( latitude ) ) )) as distanceBetween,price,bedroom,bathroom from seller where (3959 * acos ( cos ( radians( 20)) * cos( radians( latitude) ) * cos( radians(longitude ) - radians(45 ))  + sin ( radians(20) ) * sin( radians( latitude ) ) ) <= 10) AND (price >= 11250 AND price <= 56250) AND (bedroom >= 0 AND bedroom <= 6 ) AND (bathroom >=0 and bathroom <=6 ) 
+Distance - 30.0
+Price - 25000 Min - 15000 Max - 45000
+Budget - 60.0
+Bedroom - 80.0
+Total Property Percentage - 100.0
+1 ID, 
+0.0 DISTANCEBETWEEN, 
+25000 PRICE, 
+2 BEDROOM, 
+2 BATHROOM 
+Distance - 30.0
+Price - 20000 Min - 15000 Max - 45000
+Budget - 60.0
+Bedroom - 60.0
+Total Property Percentage - 60.0
+2 ID, 
+0.0 DISTANCEBETWEEN, 
+20000 PRICE, 
+3 BEDROOM, 
+2 BATHROOM 
+BUILD SUCCESSFUL (total time: 18 seconds)
