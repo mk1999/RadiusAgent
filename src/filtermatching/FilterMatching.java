@@ -88,7 +88,7 @@ public class FilterMatching {
                     
                 }
                 int price = rs.getInt(3);
-                System.out.println("Price - "+price+" Min - "+minBudget+" Max - "+maxBudget);
+                //System.out.println("Price - "+price+" Min - "+minBudget+" Max - "+maxBudget);
                     if(price>=minBudget && price<=maxBudget){
                         percentage += 30;
                     }else {
