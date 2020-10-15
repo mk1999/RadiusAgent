@@ -78,7 +78,8 @@ public class FilterMatching {
                 }else{
                     percentage+=(10-distanceBetween)*3.75;
                 }
-                System.out.println("Distance - "+percentage);
+                //System.out.println("Distance - "+percentage);
+                
                 //Budget percentage Calculation
                 if(maxBudget==0 || minBudget==0){
                     maxBudget = Math.max(minBudget,maxBudget);
@@ -97,7 +98,8 @@ public class FilterMatching {
                         percentage += ((qMaxBudget - price)/maxBudget) * 100 * 1.2;
                     }
                    }
-                System.out.println("Budget - "+percentage);
+                //System.out.println("Budget - "+percentage);
+                
                 //Bedroom Percentage calculation
                 if(maxBedroom!=0||minBedroom!=0){
                     maxBedroom= Math.max(minBedroom,maxBedroom);
@@ -116,7 +118,7 @@ public class FilterMatching {
                         percentage += ((qMaxBedroom - bedroom)/(qMaxBedroom - maxBedroom))*20;
                     }
                     }
-                System.out.println("Bedroom - "+percentage);
+                //System.out.println("Bedroom - "+percentage);
                 
                 //Bathroom percentage Calcualtion
                 if(maxBathroom!=0||minBathroom!=0){
